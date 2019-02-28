@@ -6,9 +6,7 @@ font-family: 'Shrikhand', cursive
 
 body {
   margin: 0px 0px;
-  background-color: rgba(102,150,142,1);
-  /* background-color: rgba(153,255,204,1); */
-  /* background-color: lightblue; */
+  background-color: rgba(80,120,50,1);
 }
 
 .main-container {
@@ -99,7 +97,7 @@ body {
 
 input[type=range]{
     -webkit-appearance: none;
-    background-color: rgba(102,150,142,1);
+    background-color: rgba(80,120,50,1);
 }
 input[type=range]::-webkit-slider-runnable-track {
     height: 5px;
