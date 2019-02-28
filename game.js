@@ -28,14 +28,15 @@ function Game(updateDur) {
   this.lastKey = 0;
   this.pausedTxt = undefined;
   this.grid = undefined;
-  this.boxSize = 10;
-  this.gridWidth = 81;
-  this.gridHeight = 60;
+  this.boxSize = 8;
+  this.gridWidth = 113;
+  this.gridHeight = 113;
   this.curBoxC = 0;
   this.curBoxR = 0;
   this.mode = 'init';
   this.boxColorOn = 'RGB(127, 255, 212)';
   this.boxColorOff = 'RGBA(126, 126, 126, 1)';
+  this.gridLines = true;
 
   this.init = function() {
     this.bg.src = 'bg1.png';
@@ -43,7 +44,7 @@ function Game(updateDur) {
     for (let r = 0; r < this.gridHeight; r++) {
       let tmpRow = [];
       for (let c = 0; c < this.gridWidth; c++) {
-        tmpRow.push( new Box((c*10)+(c+1),(r*10)+(r+1),this.boxColorOff,this.boxSize)); // +1 is for 1 pixel gap between boxes
+        tmpRow.push( new Box((c*this.boxSize),(r*this.boxSize),this.boxColorOff,this.boxSize));
       }
       this.grid.push(tmpRow);
     }
@@ -67,16 +68,17 @@ function Game(updateDur) {
   };
 
   this.paintBox = function() {
-    let c = Math.floor( (State.mouseX-2) / (this.boxSize+1) ); // small offsets are for... 1.canvas border  2.the divider lines between boxes
-    let r = Math.floor( (State.mouseY-2) / (this.boxSize+1) );
-    // console.log('box clicked: Col='+c+"  Row="+r);
+
+    let c = Math.floor( (State.mouseX-1) / (this.boxSize) ); // small offsets are for... 1.canvas border  2.the divider lines between boxes
+    let r = Math.floor( (State.mouseY-1) / (this.boxSize) );
+    console.log('box clicked: Col='+c+"  Row="+r);
     this.grid[r][c].color = this.boxColorOn;
     this.grid[r][c].curStatus = 'on';
     this.grid[r][c].prevStatus = 'on';
   };
   this.eraseBox = function() {
-    let c = Math.floor( (State.mouseX-2) / (this.boxSize+1) ); // small offsets are for... 1.canvas border  2.the divider lines between boxes
-    let r = Math.floor( (State.mouseY-2) / (this.boxSize+1) );
+    let c = Math.floor( (State.mouseX-1) / (this.boxSize) ); // small offsets are for... 1.canvas border  2.the divider lines between boxes
+    let r = Math.floor( (State.mouseY-1) / (this.boxSize) );
     this.grid[r][c].color = this.boxColorOff;
     this.grid[r][c].curStatus = 'off';
     this.grid[r][c].prevStatus = 'off';
@@ -135,25 +137,7 @@ function Game(updateDur) {
           this.grid[r][c].curStatus = 'on';
         } else {
           console.log('wut!');
-        }
-
-
-        // if (this.grid[r][c].prevStatus === 'on') { // die
-        //   if (count < 2) {
-        //     this.grid[r][c].curStatus = 'off';
-        //   } else if ((count === 2) || (count === 3)) { // live
-        //     this.grid[r][c].curStatus = 'on';
-        //   } else if (count > 3) { // die
-        //     this.grid[r][c].curStatus = 'off';
-        //   } else {
-        //     // nothin
-        //   }
-        // } else if ( (count === 3) && (this.grid[r][c].curStatus === 'off') ) { // live
-        //   this.grid[r][c].curStatus = 'on';
-        // } else  {
-        //   // nothin
-        // }
-
+        } // if
       } // for
     } // for
   };
@@ -183,9 +167,26 @@ function Game(updateDur) {
   };
   this.unpauseIt = function() {
     myGame.paused = false;
-    // this prevents pac from updating many times after UNpausing
+    // this prevents updating many times after UNpausing
     this.lastUpdate = performance.now();
     this.timeGap = 0;
+  };
+
+  this.drawGridLines = function() {
+    ctx.beginPath();
+    ctx.translate(-0.5, -0.5);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = myColors.lightGreyTrans;
+    for (let c = 0; c < this.gridWidth; c++) {
+      ctx.moveTo(0,(c*this.boxSize)+1);
+      ctx.lineTo(CANVAS.width,(c*this.boxSize)+1);
+    }
+    for (let r = 0; r < this.gridHeight; r++) {
+      ctx.moveTo((r*this.boxSize)+1,0);
+      ctx.lineTo((r*this.boxSize)+1,CANVAS.height);
+    }
+    ctx.stroke();
+    ctx.translate(0.5, 0.5);
   };
 
   this.clearGrid = function() {
@@ -210,6 +211,7 @@ function Game(updateDur) {
         this.grid[r][c].draw();
       }
     }
+    if (this.gridLines === true) { this.drawGridLines(); }
   }; // end draw
 
   this.update = function() {

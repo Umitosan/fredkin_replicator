@@ -10,7 +10,7 @@ body {
 }
 
 .main-container {
-  width: 1000px;
+  width: 1200px;
   height: 100%;
   margin: 20px auto 0px auto;
   border-color: black;
@@ -159,8 +159,10 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 
 .canvas-container {
   margin: 20px auto 30px auto;
-  width: 884px;
-  height: 652px;
+  /* width: 884px;
+  height: 652px; */
+  width: 900px;
+  height: 900px;
   /* outline-color: red;
   outline-style: solid;
   outline-width: 1px; */
@@ -169,7 +171,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
   margin: 0px 0px 0px 0px;
   /* background-color: lightblue; */
   background-color: rgba(153,153,153,1);
-  /* outline-color: red;
+  /* outline-color: blue;
   outline-style: solid;
   outline-width: 1px; */
 }

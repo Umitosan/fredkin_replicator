@@ -158,7 +158,7 @@ $(document).ready(function() {
   // this is to correct for canvas blurryness on single pixel wide lines etc
   // important when animating to reduce rendering artifacts and other oddities
   // ctx.translate(0.5, 0.5);
-  ctx.translate(1, 1);
+  // ctx.translate(1, 1);
 
   // start things up!
   generalLoopReset();
@@ -172,6 +172,7 @@ $(document).ready(function() {
     if (myGame.mode === 'draw') {
       myGame.simStart = performance.now();
       myGame.mode = 'sim';
+      myGame.gridLines = false;
       $('#mode-current-status')[0].innerText = 'Simulate';
       let v = $('#speed-slider').val();
       $('#speed-input').prop("value", v);
@@ -187,6 +188,7 @@ $(document).ready(function() {
     State.loopRunning = true;
     State.gameStarted = true;
     myGame.mode = 'draw';
+    myGame.gridLines = true;
     $('#pause-btn')[0].innerText = 'PAUSE';
     $('#mode-current-status')[0].innerText = 'draw';
     // myGame.loadExample('custom1');
