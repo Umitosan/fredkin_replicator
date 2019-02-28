@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Shrikhand" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"  type="text/css" >
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Fredkin Replicator</title>
+  </head>
+  <body>
+
+    <div class="main-container">
+
+      <div class="title-container">
+        <span id="title">Fredkin Replicator</span>
+      </div>
+
+
+      <div class="speed-container">
+        <span class="speed-label">Speed</span>
+        <input id="speed-slider" type="range" name="speed-slider" min="1" max="120" step="1" value="10">
+        <input id="speed-input" type="number" name="speed-input" value="10" min="1" max="50">
+        <span class="speed-label">(updates/sec)</span>
+      </div>
+
+
+      <div class="status-container">
+        <div class="mode-container">
+          <span id="mode-label">MODE: </span><span id="mode-current-status">DRAW</span>
+        </div>
+        <div class="debug-container">
+          <div id="coords">
+            <div>
+              Mouse Coords
+            </div>
+            <div>
+              X: <span id="coords-x">0</span> Y: <span id="coords-y">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons-container">
+        <button id="start-btn" type="button" name="start">START sim</button>
+        <button id="pause-btn" type="button" name="pause">PAUSE</button>
+        <button id="reset-btn" type="button" name="reset">RESET</button>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="canvas" width="884" height="652"></canvas>
+      </div>
+
+    </div>
+  <footer>
+    <div class="social-container">
+      <a href="https://github.com/Umitosan/fredkin_replicator">
+        <img id="git-img" border="0" src="giticon.png" alt="github-icon">
+      </a>
+    </div>
+  </footer>
+</html>
